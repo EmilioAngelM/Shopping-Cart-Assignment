@@ -116,10 +116,10 @@ print("---------------------------------")
 
 print("SUBTOTAL: " + "("+str("${:,.2f}".format(total_price))+")")
 
-tc = int(total_price)*TAX_RATE
+tc = int(total_price)*float(TAX_RATE)
 
 print("TAX: " + "("+str("${:,.2f}".format(tc))+")")
-print("TOTAL: " + "("+str("${:,.2f}".format(round(total_price-tc, 2)))+")")
+print("TOTAL: " + "("+str("${:,.2f}".format(round(total_price+tc, 2)))+")")
 print("---------------------------------")
 print("THANKS, SEE YOU AGAIN SOON!")
 print("---------------------------------")
