@@ -1,5 +1,13 @@
 # shopping_cart.py
 import datetime
+import os
+
+from dotenv import load_dotenv
+#...
+load_dotenv()  # take environment variables from .env.
+
+TAX_RATE = os.getenv("TAX_RATE", default=0.0875)
+
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
     {"id":2, "name": "All-Seasons Salt", "department": "pantry", "aisle": "spices seasonings", "price": 4.99},
@@ -108,7 +116,7 @@ print("---------------------------------")
 
 print("SUBTOTAL: " + "("+str("${:,.2f}".format(total_price))+")")
 
-tc = int(total_price)*0.0875
+tc = int(total_price)*TAX_RATE
 
 print("TAX: " + "("+str("${:,.2f}".format(tc))+")")
 print("TOTAL: " + "("+str("${:,.2f}".format(round(total_price-tc, 2)))+")")
