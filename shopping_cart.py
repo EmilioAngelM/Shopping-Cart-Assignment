@@ -63,10 +63,52 @@ while True:
 
 #print("TOTAL PRICE: " + str(total_price))
 
+print("---------------------------------")
+print("ANGEL FOODS GROCERY")
+print("WWW.ANGEL-FOODS-GROCERY.COM")
+print("202-968-2062")
+print("---------------------------------")
+print("CHECKOUT AT: 2021-02-24 03:54 PM")
+print("---------------------------------")
+print("SELECTED PRODUCTS:")
+
+
 for selected_id in selected_ids:
         matching_product = [p for p in products if str(p["id"]) == str(selected_id)]
         matching_product = matching_product[0]
         
         total_price = total_price + matching_product["price"]
-        print("SELECTED PRODUCT: " + matching_product["name"] + " " + str(matching_product["price"]))
-print("TOTAL PRICE: " + str(total_price))
+        print("... " + matching_product["name"] + " " + str(matching_product["price"]))
+
+#> ---------------------------------
+#> ANGEL FOODS GROCERY
+#> WWW.ANGEL-FOODS-GROCERY.COM
+#> ---------------------------------
+#> CHECKOUT AT: 2021-02-24 03:54 PM
+#> ---------------------------------
+#> SELECTED PRODUCTS:
+#>  ... Chocolate Sandwich Cookies ($3.50)
+#>  ... All-Seasons Salt ($4.99)
+#>  ... Robust Golden Unsweetened Oolong Tea ($2.49)
+#>  ... All-Seasons Salt ($4.99)
+#>  ... Chocolate Sandwich Cookies ($3.50)
+#> ---------------------------------
+#> SUBTOTAL: $19.47
+#> TAX: $1.70
+#> TOTAL: $21.17
+#> ---------------------------------
+#> THANKS, SEE YOU AGAIN SOON!
+#> ---------------------------------
+print("---------------------------------")
+print("SUBTOTAL: " + str(total_price))
+
+tc = int(total_price)*0.0875
+
+print("TAX: " + str(tc))
+print("TOTAL: " + str(round(total_price-tc, 2)))
+print("---------------------------------")
+print("THANKS, SEE YOU AGAIN SOON!")
+print("---------------------------------")
+#tax_calculation = int(total_price)
+#print("TAX: " + ((tax_calculation)*0.08))
+
