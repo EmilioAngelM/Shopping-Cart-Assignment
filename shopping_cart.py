@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-#from dotenv import load_dotenv
-#...
+
 load_dotenv()  # take environment variables from .env.
 
 TAX_RATE = os.getenv("TAX_RATE", default=0.0875)
@@ -48,9 +47,7 @@ def to_usd(my_price):
     return f"${my_price:,.2f}" #> $12,000.71
 
 
-# TODO: write some Python code here to produce the desired output
 
-#print(products)
 
 
 #Info Inputs
@@ -64,15 +61,9 @@ while True:
     if selected_id == "DONE":
         break
     else:
-        #matching_product = [p for p in products if str(p["id"]) == str(selected_id)]
-        #matching_product = matching_product[0]
-        #
-        #total_price = total_price + matching_product["price"]
-        #print("SELECTED PRODUCT: " + matching_product["name"] + " " + str(matching_product["price"]))
+    
         selected_ids.append(selected_id)
-#print(selected_ids)
 
-#print("TOTAL PRICE: " + str(total_price))
 
 print("---------------------------------")
 print("ANGEL FOODS GROCERY")
@@ -80,10 +71,6 @@ print("WWW.ANGEL-FOODS-GROCERY.COM")
 print("3700 O St, NW, Washington DC")
 print("202-968-2062")
 print("---------------------------------")
-#print("CHECKOUT AT: 2021-02-24 03:54 PM")
-
-
-
 print("CHECKOUT AT: " + str(datetime.datetime.now().strftime("%Y-%m-%d %I:%M %p")))
 print("---------------------------------")
 print("SELECTED PRODUCTS:")
@@ -96,25 +83,7 @@ for selected_id in selected_ids:
         total_price = total_price + matching_product["price"]
         print("... " + matching_product["name"] + " " + "("+str("${:,.2f}".format(matching_product["price"]))+")")
 
-#> ---------------------------------
-#> ANGEL FOODS GROCERY
-#> WWW.ANGEL-FOODS-GROCERY.COM
-#> ---------------------------------
-#> CHECKOUT AT: 2021-02-24 03:54 PM
-#> ---------------------------------
-#> SELECTED PRODUCTS:
-#>  ... Chocolate Sandwich Cookies ($3.50)
-#>  ... All-Seasons Salt ($4.99)
-#>  ... Robust Golden Unsweetened Oolong Tea ($2.49)
-#>  ... All-Seasons Salt ($4.99)
-#>  ... Chocolate Sandwich Cookies ($3.50)
-#> ---------------------------------
-#> SUBTOTAL: $19.47
-#> TAX: $1.70
-#> TOTAL: $21.17
-#> ---------------------------------
-#> THANKS, SEE YOU AGAIN SOON!
-#> ---------------------------------
+
 print("---------------------------------")
 
 print("SUBTOTAL: " + "("+str("${:,.2f}".format(total_price))+")")
@@ -126,8 +95,7 @@ print("TOTAL: " + "("+str("${:,.2f}".format(round(total_price+tc, 2)))+")")
 print("---------------------------------")
 print("THANKS, SEE YOU AGAIN SOON!")
 print("---------------------------------")
-#tax_calculation = int(total_price)
-#print("TAX: " + ((tax_calculation)*0.08))
+
 
 
 load_dotenv()
@@ -136,15 +104,15 @@ SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env v
 SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
 SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
 
-# this must match the test data structure
+
 template_data = {
     "total_price_usd": "("+str("${:,.2f}".format(round(total_price+tc, 2)))+")",
     "human_friendly_timestamp": str(datetime.datetime.now().strftime("%Y-%m-%d %I:%M %p"))
-} # or construct this dictionary dynamically based on the results of some other process :-D
+} 
 
 client = SendGridAPIClient(SENDGRID_API_KEY)
 print("CLIENT:", type(client))
-#
+
 message = Mail(from_email=SENDER_ADDRESS, to_emails=SENDER_ADDRESS)
 message.template_id = SENDGRID_TEMPLATE_ID
 message.dynamic_template_data = template_data
