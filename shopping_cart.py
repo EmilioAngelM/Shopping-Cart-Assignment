@@ -104,10 +104,10 @@ SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env v
 SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
 SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
 
-
+#Miguel Catillo helped me setting up the AM/PM format for the time stamp
 template_data = {
     "total_price_usd": "("+str("${:,.2f}".format(round(total_price+tc, 2)))+")",
-    "human_friendly_timestamp": str(datetime.datetime.now().strftime("%Y-%m-%d %I:%M %p"))
+    "human_friendly_timestamp": str(datetime.datetime.now().strftime("%Y-%m-%d%I:%M %p"))
 } 
 
 client = SendGridAPIClient(SENDGRID_API_KEY)
