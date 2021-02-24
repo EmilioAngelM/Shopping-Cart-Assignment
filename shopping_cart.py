@@ -97,34 +97,40 @@ print("THANKS, SEE YOU AGAIN SOON!")
 print("---------------------------------")
 
 
+choice = input("Would you like to receive an email with your total balance? ('YES' or 'NO'): ")
 
-load_dotenv()
+if choice == "YES":
 
-SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env var called 'SENDGRID_API_KEY'")
-SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
-SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
+    load_dotenv()
 
-#Miguel Catillo helped me setting up the AM/PM format for the time stamp
-template_data = {
-    "total_price_usd": "("+str("${:,.2f}".format(round(total_price+tc, 2)))+")",
-    "human_friendly_timestamp": str(datetime.datetime.now().strftime("%Y-%m-%d%I:%M %p"))
-} 
+    SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env var called 'SENDGRID_API_KEY'")
+    SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
+    SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
 
-client = SendGridAPIClient(SENDGRID_API_KEY)
-print("CLIENT:", type(client))
+    #Miguel Catillo helped me setting up the AM/PM format for the time stamp
+    template_data = {
+        "total_price_usd": "("+str("${:,.2f}".format(round(total_price+tc, 2)))+")",
+        "human_friendly_timestamp": str(datetime.datetime.now().strftime("%Y-%m-%d%I:%M %p"))
+    } 
 
-message = Mail(from_email=SENDER_ADDRESS, to_emails=SENDER_ADDRESS)
-message.template_id = SENDGRID_TEMPLATE_ID
-message.dynamic_template_data = template_data
-print("MESSAGE:", type(message))
+    client = SendGridAPIClient(SENDGRID_API_KEY)
+    print("CLIENT:", type(client))
 
-try:
-    response = client.send(message)
-    print("RESPONSE:", type(response))
-    print(response.status_code)
-    print(response.body)
-    print(response.headers)
+    message = Mail(from_email=SENDER_ADDRESS, to_emails=SENDER_ADDRESS)
+    message.template_id = SENDGRID_TEMPLATE_ID
+    message.dynamic_template_data = template_data
+    print("MESSAGE:", type(message))
 
-except Exception as err:
-    print(type(err))
-    print(err)
+    try:
+        response = client.send(message)
+        print("RESPONSE:", type(response))
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+
+    except Exception as err:
+        print(type(err))
+        print(err)
+
+else:
+   print("Alright, have a nice day!")

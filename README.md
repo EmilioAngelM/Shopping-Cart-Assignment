@@ -72,9 +72,9 @@ Example "Code" template which will specify the structure of all emails:
 <p>Total: {{total_price_usd}}</p>
 ```
 
-> NOTE: when we send real emails using this template, we'll pass dynamic data with different values, but it should resemble this test data structure.
 
-Finally, configure the template's subject by clicking on "Settings" in the left sidebar. Choose an email subject like "Your Receipt from the Green Grocery Store". Then click "Save Template".
+
+Finally, configure the template's subject by clicking on "Settings" in the left sidebar. Choose an email subject like "Your Receipt from the Angel Foods Grocery". Then click "Save Template".
 
 After configuring and saving the email template, we should be able to use it to send an email:
 
@@ -98,4 +98,4 @@ Lastly, in the ".env" file, create a "SENDER_ADDRESS" variable that contains you
 Run the checkout system script in your command line:
 
 ```py
-python game.py
+python shopping_cart.py
