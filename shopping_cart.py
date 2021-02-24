@@ -99,8 +99,9 @@ print("---------------------------------")
 
 choice = input("Would you like to receive an email with your total balance? ('YES' or 'NO'): ")
 
-if choice == "YES":
 
+if choice == "YES":
+    REC_ADDRESS = input("What is your email address?")
     load_dotenv()
 
     SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env var called 'SENDGRID_API_KEY'")
@@ -116,7 +117,7 @@ if choice == "YES":
     client = SendGridAPIClient(SENDGRID_API_KEY)
     print("CLIENT:", type(client))
 
-    message = Mail(from_email=SENDER_ADDRESS, to_emails=SENDER_ADDRESS)
+    message = Mail(from_email=SENDER_ADDRESS, to_emails=REC_ADDRESS)
     message.template_id = SENDGRID_TEMPLATE_ID
     message.dynamic_template_data = template_data
     print("MESSAGE:", type(message))
