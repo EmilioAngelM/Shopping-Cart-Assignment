@@ -2,8 +2,8 @@
 import os
 import datetime
 from dotenv import load_dotenv
-#from sendgrid import SendGridAPIClient
-#from sendgrid.helpers.mail import Mail
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 #from dotenv import load_dotenv
 #...
@@ -130,31 +130,33 @@ print("---------------------------------")
 #print("TAX: " + ((tax_calculation)*0.08))
 
 
-#load_dotenv()
+load_dotenv()
+
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env var called 'SENDGRID_API_KEY'")
+SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
+SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
+
+# this must match the test data structure
+template_data = {
+    "total_price_usd": "("+str("${:,.2f}".format(round(total_price+tc, 2)))+")",
+    "human_friendly_timestamp": str(datetime.datetime.now().strftime("%Y-%m-%d %I:%M %p"))
+} # or construct this dictionary dynamically based on the results of some other process :-D
+
+client = SendGridAPIClient(SENDGRID_API_KEY)
+print("CLIENT:", type(client))
 #
-#SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", default="OOPS, please set env var called 'SENDGRID_API_KEY'")
-#SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
-#
-#client = SendGridAPIClient(SENDGRID_API_KEY) #> <class 'sendgrid.sendgrid.SendGridAPIClient>
-#print("CLIENT:", type(client))
-#
-#subject = "Your Receipt from the Green Grocery Store"
-#
-#html_content = "Hello World"
-#print("HTML:", html_content)
-#
-## FYI: we'll need to use our verified SENDER_ADDRESS as the `from_email` param
-## ... but we can customize the `to_emails` param to send to other addresses
-#message = Mail(from_email=SENDER_ADDRESS, to_emails=SENDER_ADDRESS, subject=subject, html_content=html_content)
-#
-#try:
-#    response = client.send(message)
-#
-#    print("RESPONSE:", type(response)) #> <class 'python_http_client.client.Response'>
-#    print(response.status_code) #> 202 indicates SUCCESS
-#    print(response.body)
-#    print(response.headers)
-#
-#except Exception as err:
-#    print(type(err))
-#    print(err)
+message = Mail(from_email=SENDER_ADDRESS, to_emails=SENDER_ADDRESS)
+message.template_id = SENDGRID_TEMPLATE_ID
+message.dynamic_template_data = template_data
+print("MESSAGE:", type(message))
+
+try:
+    response = client.send(message)
+    print("RESPONSE:", type(response))
+    print(response.status_code)
+    print(response.body)
+    print(response.headers)
+
+except Exception as err:
+    print(type(err))
+    print(err)
