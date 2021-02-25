@@ -71,7 +71,7 @@ print("WWW.ANGEL-FOODS-GROCERY.COM")
 print("3700 O St, NW, Washington DC")
 print("202-968-2062")
 print("---------------------------------")
-print("CHECKOUT AT: " + str(datetime.datetime.now().strftime("%Y-%m-%d %I:%M %p")))
+print("CHECKOUT AT: " + str(datetime.datetime.now().strftime("%Y-%m-%d %I:%M %p"))) #Miguel Catillo helped me setting up the AM/PM format for the time stamp
 print("---------------------------------")
 print("SELECTED PRODUCTS:")
 
@@ -108,7 +108,7 @@ if choice == "YES":
     SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
     SENDER_ADDRESS = os.getenv("SENDER_ADDRESS", default="OOPS, please set env var called 'SENDER_ADDRESS'")
 
-    #Miguel Catillo helped me setting up the AM/PM format for the time stamp
+    
     template_data = {
         "total_price_usd": "("+str("${:,.2f}".format(round(total_price+tc, 2)))+")",
         "human_friendly_timestamp": str(datetime.datetime.now().strftime("%Y-%m-%d%I:%M %p"))
